@@ -194,7 +194,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+<<<<<<< Updated upstream
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+=======
+>>>>>>> Stashed changes
 
     ],
 
@@ -211,8 +214,11 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+<<<<<<< Updated upstream
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+=======
+>>>>>>> Stashed changes
     ])->toArray(),
 
 ];

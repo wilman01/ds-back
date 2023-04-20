@@ -8,9 +8,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+<<<<<<< Updated upstream
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
+=======
+class User extends Authenticatable
+>>>>>>> Stashed changes
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -43,6 +47,7 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+<<<<<<< Updated upstream
 
     public function getJWTIdentifier()
     {
@@ -53,4 +58,6 @@ class User extends Authenticatable implements JWTSubject
     {
     	return [];
     }
+=======
+>>>>>>> Stashed changes
 }
