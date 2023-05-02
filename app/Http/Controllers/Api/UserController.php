@@ -84,7 +84,7 @@ class UserController extends Controller
         //dd($request);
         //Log::info($request);
         $validator = Validator::make($request->all(), [
-            'cedula' => 'required|string|max:10',
+            'cedula' => 'required|string|max:10|unique:users',
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
