@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +18,9 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+use App\Mail\RegisterMailable;
+use Illuminate\Support\Facades\Mail;
+
 use Log;
 
 class UserController extends Controller
@@ -25,6 +29,13 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware(['api', 'jwt.verify'])->except('authenticate');
+    }
+
+    public function index(Request $request){
+
+        $user = User::search($request->q, $request->size);
+
+       return UserCollection::make($user);
     }
 
     public function authenticate(Request $request)
@@ -41,10 +52,9 @@ class UserController extends Controller
 
       $user = User::where('email', $request->email)->first();
       $payload = [
-        'data'=>UserResource::make($user),
-        "token"=>$token
+        "data"=>UserResource::make($user),
+        "token"=>$token,
       ];
-      
       $t = JWT::encode($payload);
       return response()->json(compact('t'));
     }
@@ -99,6 +109,10 @@ class UserController extends Controller
         //$token = JWTAuth::fromUser($user);
 
         //return response()->json(compact('user','token'),201);
+
+                
+        $email = new RegisterMailable($request->all());
+        Mail::to('rafahel171@gmail.com')->send($email);
         return UserResource::make($user);
 
     }

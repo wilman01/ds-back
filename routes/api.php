@@ -40,4 +40,5 @@ Route::group([
     Route::post('user', [UserController::class, 'getAuthenticatedUser']);
     Route::post('register', [UserController::class, 'register']);
     Route::post('login', [UserController::class, 'authenticate']);
+    Route::get('user', [UserController::class, 'index']);
 });
