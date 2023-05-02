@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Api\UserController;
 
 
 /*
@@ -19,23 +19,25 @@ use App\Http\Controllers\UserController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::group([    
-    'middleware' => ['api'],
-    'prefix' => 'auth'], 
-    function(){
+// Route::group([    
+//     'middleware' => ['api'],
+//     'prefix' => 'auth'], 
+//     function(){
 
-    Route::post('register', [UserController::class, 'register']);
-    Route::post('login', [UserController::class, 'authenticate']);
-});
+//     Route::post('register', [UserController::class, 'register']);
+//     Route::post('login', [UserController::class, 'authenticate']);
+// });
 
 
 Route::group([
     
-    'middleware' => ['api','jwt.verify'],
+    //'middleware' => ['api','jwt.verify'],
     'prefix' => 'auth'
     
 ], function ($router) {
     Route::post('logout', [UserController::class, 'logout']);
     // Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('user', [UserController::class, 'getAuthenticatedUser']);
+    Route::post('register', [UserController::class, 'register']);
+    Route::post('login', [UserController::class, 'authenticate']);
 });

@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 //use JWTAuth;
+use Jerry\JWT\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
@@ -18,9 +21,16 @@ use Log;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['api', 'jwt.verify'])->except('authenticate');
+    }
+
     public function authenticate(Request $request)
     {
       $credentials = $request->only('email', 'password');
+
       try {
           if (! $token = JWTAuth::attempt($credentials)) {
               return response()->json(['error' => 'invalid_credentials'], 400);
@@ -28,7 +38,15 @@ class UserController extends Controller
       } catch (JWTException $e) {
           return response()->json(['error' => 'could_not_create_token'], 500);
       }
-      return response()->json(compact('token'));
+
+      $user = User::where('email', $request->email)->first();
+      $payload = [
+        'data'=>UserResource::make($user),
+        "token"=>$token
+      ];
+      
+      $t = JWT::encode($payload);
+      return response()->json(compact('t'));
     }
 
     public function getAuthenticatedUser()
@@ -45,18 +63,23 @@ class UserController extends Controller
         } catch (JWTException $e) {
                 return response()->json(['token_absent'], $e->getStatusCode());
         }
-        return response()->json(compact('user'));
+
+        return UserResource::make($user);
+        //return response()->json(compact('user'));
     }
 
 
     public function register(Request $request)
     {
-
+        //dd($request);
         //Log::info($request);
         $validator = Validator::make($request->all(), [
+            'cedula' => 'required|string|max:10',
             'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'role'=> 'required'
         ]);
 
         if($validator->fails()){
@@ -64,14 +87,20 @@ class UserController extends Controller
         }
 
         $user = User::create([
+            'cedula' => $request->get('cedula'),
             'name' => $request->get('name'),
+            'last_name' => $request->get('last_name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
         ]);
 
-        $token = JWTAuth::fromUser($user);
+        $user->assignRole($request->role);
 
-        return response()->json(compact('user','token'),201);
+        //$token = JWTAuth::fromUser($user);
+
+        //return response()->json(compact('user','token'),201);
+        return UserResource::make($user);
+
     }
 
     public function logout()
@@ -81,4 +110,3 @@ class UserController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 }
-
