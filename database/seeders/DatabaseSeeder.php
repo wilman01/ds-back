@@ -24,5 +24,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'rafael.velasquez@fvf.com.ve',
         ])->assignRole('admin');
 
+        $this->call(BrandsSeeder::class);
+
+
     }
 }
