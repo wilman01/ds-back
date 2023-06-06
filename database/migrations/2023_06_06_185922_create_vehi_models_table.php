@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('brands', function (Blueprint $table) {
+        Schema::create('vehi_models', function (Blueprint $table) {
             $table->id();
 
-            $table->string('brand')->unique();
+            $table->unsignedBigInteger('brand_id');
+            $table->string('model')->unique();
             $table->enum('status', ['active', 'inactive'])->default('active');
-            
+
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('brands');
+        Schema::dropIfExists('vehi_models');
     }
 };

@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         ])->assignRole('admin');
 
         $this->call(BrandsSeeder::class);
+        $this->call(VehimodelSeeder::class);
 
 
     }
