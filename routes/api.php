@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
-
+use App\Http\Controllers\Api\YearController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,4 +41,7 @@ Route::group([
     Route::post('register', [UserController::class, 'register']);
     Route::post('login', [UserController::class, 'authenticate']);
     Route::get('user', [UserController::class, 'index']);
+    Route::put('user/{user}', [UserController::class, 'update']);
 });
+
+Route::resource('year', YearController::class)->names('api.year');

@@ -42,6 +42,12 @@ class UserController extends Controller
     {
       $credentials = $request->only('email', 'password');
 
+      $userEnable = User::where('email', $request->get('email'))->first();
+      
+      if ($userEnable->status == '0') {
+        return response()->json(['error' => 'Usuario Inhabilitado'], 403);
+      }
+
       try {
           if (! $token = JWTAuth::attempt($credentials)) {
               return response()->json(['error' => 'invalid_credentials'], 400);
@@ -115,6 +121,27 @@ class UserController extends Controller
         Mail::to('rafahel171@gmail.com')->send($email);
         return UserResource::make($user);
 
+    }
+
+    public function update(Request $request, User $user){
+        $validator = Validator::make($request->all(), [
+            'cedula' => 'required|string|max:10|unique:users,cedula,'.$user->id,
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
+            'password' => 'required|string|min:6',
+            'status' => 'required|numeric',
+            'role'=> 'required'
+        ]);
+        
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(),400);
+        }
+
+        $user->update($request->all());
+        $user->syncRoles($request->role);
+
+        return UserResource::make($user);
     }
 
     public function logout()

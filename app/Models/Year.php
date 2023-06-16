@@ -10,7 +10,7 @@ class Year extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['year', 'status'];
+    protected $fillable = ['year'];
 
     public function vehi_versions(){
         return $this->belongsToMany('App\Models\Vehiversion');
