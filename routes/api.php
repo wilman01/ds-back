@@ -38,10 +38,6 @@ Route::group([
     Route::post('logout', [UserController::class, 'logout']);
     // Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('user', [UserController::class, 'getAuthenticatedUser']);
-    Route::post('register', [UserController::class, 'register']);
-    Route::post('login', [UserController::class, 'authenticate']);
-    Route::get('user', [UserController::class, 'index']);
-    Route::put('user/{user}', [UserController::class, 'update']);
 });
 
 Route::resource('year', YearController::class)->names('api.year');
