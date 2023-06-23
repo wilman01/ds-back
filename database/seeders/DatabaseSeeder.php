@@ -27,5 +27,5 @@ class DatabaseSeeder extends Seeder
         $this->call(BrandsSeeder::class);
         $this->call(VehimodelSeeder::class);
         $this->call(VehiversionSeeder::class);
-}
+    }
 }
