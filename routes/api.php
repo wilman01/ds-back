@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BrandController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
@@ -48,4 +49,6 @@ Route::group([
 
 Route::resource('year', YearController::class)->names('api.year');
 
-Route::resource('year', YearController::class)->names('api.year');
+//Route::resource('year', YearController::class)->names('api.year');
+
+Route::resource('brand', BrandController::class)->names('api.brand');
