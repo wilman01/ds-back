@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class BrandStoreRequest extends FormRequest
+class VehimodelRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,11 +17,12 @@ class BrandStoreRequest extends FormRequest
     {
         return true;
     }
-
+    
     public function rules(): array
     {
         return [
-            'brand' => 'required|string|max:55|unique:brands',
+            'brand' => 'required|string|max:55',
+            'model' => 'required|string|max:55|unique:vehi_models'
         ];
     }
 

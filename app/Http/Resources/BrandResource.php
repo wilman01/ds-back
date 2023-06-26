@@ -25,6 +25,6 @@ class BrandResource extends JsonResource
             'links'=>[
                 'self'=>url('/api/brand/' . $this->resource->getRouteKey())
             ]
-    ];
+        ];
     }
 }

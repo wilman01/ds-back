@@ -68,7 +68,7 @@ class YearController extends Controller
     public function update(Request $request, Year $year)
     {
         $validator = Validator::make($request->all(),[
-            'year' => 'required|string|max:4|unique:years,year,'.$year->id
+            'year' => 'string|max:4|unique:years,year,'.$year->id
         ]);
 
         if($validator->fails()){
