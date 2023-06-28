@@ -10,5 +10,10 @@ class Vehimodel extends Model
     use HasFactory;
 
     protected $table = 'vehi_models';
-    protected $fillable = ['model', 'status'];
+    protected $fillable = ['brand_id','model','status'];
+
+    public function brand()
+    {
+        return $this->belongsTo('App\Models\Brand');
+    }
 }

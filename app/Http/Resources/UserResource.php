@@ -22,6 +22,7 @@ class UserResource extends JsonResource
                     "cedula"=>$this->resource->cedula,
                     "name"=> $this->resource->name,
                     "last_name"=>$this->resource->last_name,
+                    "status"=>$this->resource->status,
                     "email"=> $this->resource->email,
                 ],
                 'links'=>[
