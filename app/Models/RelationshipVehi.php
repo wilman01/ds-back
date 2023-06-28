@@ -28,4 +28,19 @@ class RelationshipVehi extends Model
 
         return self::save();
     }
+
+    public function year()
+    {
+        return $this->belongsTo('App\Models\Year', 'year_id');
+    }
+
+    public function vehimodel()
+    {
+        return $this->belongsTo('App\Models\Vehimodel', 'vehi_model_id');
+    }
+
+    public function vehiversion()
+    {
+        return $this->belongsTo('App\Models\Vehiversion', 'vehi_version_id');
+    }
 }

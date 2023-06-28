@@ -29,7 +29,10 @@ class BrandController extends Controller
      */
     public function index(Request $request)
     {
-        $brand = $this->brandRepository->all();
+        $where = [
+            ['brand', 'like', "%$request->q%"]
+        ];
+        $brand = $this->brandRepository->all($where);
 
         return BrandCollection::make($brand);
     }

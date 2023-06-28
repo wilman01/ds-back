@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VehimodelController;
 use App\Http\Controllers\Api\YearController;
-
+use App\Http\Controllers\VehiversionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,4 +54,4 @@ Route::resource('brand', BrandController::class)->names('api.brand');
 
 Route::resource('vehimodel', VehimodelController::class)->names('api.vehimodel');
 
-
+Route::resource('vehi_version', VehiversionController::class)->names('api.vehiversion');

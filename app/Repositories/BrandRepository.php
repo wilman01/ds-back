@@ -5,13 +5,13 @@ use App\Models\Brand;
 
 class BrandRepository extends BaseRepository
 {
-    // const RELATIONS =[
-    //     ''
-    // ];
+    const RELATIONS =[
+        'vehimodels'
+    ];
 
     public function __construct(Brand $brand)
     {
-        parent::__construct($brand);
+        parent::__construct($brand, self::RELATIONS);
     }
 
     

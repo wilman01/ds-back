@@ -29,9 +29,26 @@ class VehimodelController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $vehimodel = $this->vehiModelRepository->all();
+        if(!$request->brand_id){
+            return response()->json(
+                [
+                    'ERROR'=>'Debe indicar el Id de la marca de los modelos que desea consultar'
+                ],400);
+        }
+
+        $where = [
+            ['brand_id', $request->brand_id],
+          
+        ];
+
+        if($request->q){
+            $where[]=  ['model', 'like', "%$request->q%"];
+        }
+
+        $vehimodel = $this->vehiModelRepository->all($where);
+
         return VehimodelCollection::make($vehimodel);
     }
 

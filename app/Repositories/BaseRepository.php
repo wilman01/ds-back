@@ -15,17 +15,27 @@ class BaseRepository
         $this->relations = $relations;
     }
 
-    public function all(){
-        return $this->model->paginate();
+    public function all($where = []){
+        // return $this->model->where($where)
+        //         ->paginate();
+
+        $query = $this->model;
+
+        if(!empty($this->relations)){
+            $query = $query->with($this->relations);
+        }
+
+        return $query->where($where)
+                ->paginate(10);
     }
 
-    public function get(int $id)
+    public function get($id)
     {
         $query = $this->model;
         if(!empty($this->relations)){
             $query = $query->with($this->relations);
         }
-        return $query->find($id);
+        return $query->findOrFail($id);
     }
 
     public function save(Model $model)

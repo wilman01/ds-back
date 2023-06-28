@@ -12,7 +12,13 @@ class Vehiversion extends Model
     protected $table = 'vehi_versions';
     protected $fillable = ['version', 'status'];
 
-    public function years(){
-        return $this->belongsToMany('App\Models\Year', 'vehi_version_year', 'vehi_version_id');
+    // public function years(){
+    //     return $this->belongsToMany('App\Models\Year', 'vehi_version_year', 'vehi_version_id');
+    // }
+    
+  
+    public function relationship()
+    {
+        return $this->hasMany('App\Models\RelationshipVehi', 'vehi_version_id');
     }
 }
