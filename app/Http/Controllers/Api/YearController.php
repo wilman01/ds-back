@@ -16,7 +16,7 @@ class YearController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['api', 'jwt.verify']);    
+        $this->middleware(['api', 'jwt.verify'])->except('index');    
     }
     /**
      * Display a listing of the resource.

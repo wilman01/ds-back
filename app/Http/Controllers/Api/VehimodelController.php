@@ -21,7 +21,7 @@ class VehimodelController extends Controller
 
     public function __construct(VehimodelRepository $vehiModelRepository, BrandRepository $brandRepository)
     {
-        $this->middleware(['api', 'jwt.verify']);    
+        $this->middleware(['api', 'jwt.verify'])->except('index');    
         $this->vehiModelRepository = $vehiModelRepository;
         $this->brandRepository = $brandRepository;
 

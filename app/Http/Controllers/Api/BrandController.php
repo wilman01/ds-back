@@ -20,7 +20,7 @@ class BrandController extends Controller
     private $brandRepository;
     public function __construct(BrandRepository $brandRepository)
     {
-        $this->middleware(['api', 'jwt.verify']);    
+        $this->middleware(['api', 'jwt.verify'])->except('index');    
 
         $this->brandRepository = $brandRepository;
     }
