@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class VehimodelCollection extends ResourceCollection
+class VehiversionCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -15,7 +15,7 @@ class VehimodelCollection extends ResourceCollection
     public function toArray(Request $request): array
     {
         return [
-            'data'=>VehimodelResource::collection($this->collection)
+            'data'=>VehiversionResource::collection($this->collection)
         ];
     }
 }
