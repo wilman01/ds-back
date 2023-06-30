@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VehimodelController;
 use App\Http\Controllers\Api\YearController;
-use App\Http\Controllers\VehiversionController;
+use App\Http\Controllers\Api\VehiversionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,27 +19,12 @@ use App\Http\Controllers\VehiversionController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-// Route::group([    
-//     'middleware' => ['api'],
-//     'prefix' => 'auth'], 
-//     function(){
-
-//     Route::post('register', [UserController::class, 'register']);
-//     Route::post('login', [UserController::class, 'authenticate']);
-// });
-
-
 Route::group([
     
-    //'middleware' => ['api','jwt.verify'],
     'prefix' => 'auth'
     
 ], function ($router) {
     Route::post('logout', [UserController::class, 'logout']);
-    // Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('user', [UserController::class, 'getAuthenticatedUser']);
     Route::post('register', [UserController::class, 'register']);
     Route::post('login', [UserController::class, 'authenticate']);
@@ -54,4 +39,4 @@ Route::resource('brand', BrandController::class)->names('api.brand');
 
 Route::resource('vehimodel', VehimodelController::class)->names('api.vehimodel');
 
-Route::resource('vehi_version', VehiversionController::class)->names('api.vehiversion');
+Route::resource('vehiversion', VehiversionController::class)->names('api.vehiversion');

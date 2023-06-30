@@ -16,4 +16,9 @@ class Vehimodel extends Model
     {
         return $this->belongsTo('App\Models\Brand');
     }
+
+    public function version()
+    {
+        return $this->hasMany('App\Models\RelationshipVehi', 'vehi_model_id');
+    }
 }
