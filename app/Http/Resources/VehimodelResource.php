@@ -26,8 +26,6 @@ class VehimodelResource extends JsonResource
                         ]
                     ];
         if ($this->resource->brand){
-            //$brand = BrandResource::make($this->resource->brand);
-
             $vehimodel['atribute']['brand'] = $this->resource->brand->brand;
             $vehimodel['atribute']['brand_id'] = $this->resource->brand->id;
         }

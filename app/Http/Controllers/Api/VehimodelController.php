@@ -31,23 +31,23 @@ class VehimodelController extends Controller
      */
     public function index(Request $request)
     {
-        if(!$request->brand_id){
+        if(!$request->brand_id || !$request->year_id){
             return response()->json(
                 [
-                    'ERROR'=>'Debe indicar el Id de la marca de los modelos que desea consultar'
+                    'ERROR'=>'Debe indicar el Id de la marca y el Año de los modelos que desea consultar'
                 ],400);
         }
 
         $where = [
-            ['brand_id', $request->brand_id],
-          
+            ['brand_id', $request->brand_id],          
+            ['relationship_vehi.year_id', $request->year_id],          
         ];
 
         if($request->q){
             $where[]=  ['model', 'like', "%$request->q%"];
         }
 
-        $vehimodel = $this->vehiModelRepository->all($where);
+        $vehimodel = $this->vehiModelRepository->allModel($request, $where);
 
         return VehimodelCollection::make($vehimodel);
     }

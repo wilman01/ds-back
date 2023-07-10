@@ -16,10 +16,7 @@ class BaseRepository
     }
 
     public function all($where = []){
-        // return $this->model->where($where)
-        //         ->paginate();
-
-        $query = $this->model;
+         $query = $this->model;
 
         if(!empty($this->relations)){
             $query = $query->with($this->relations);
