@@ -21,4 +21,9 @@ class Vehimodel extends Model
     {
         return $this->hasMany('App\Models\RelationshipVehi', 'vehi_model_id');
     }
+
+    public function year()
+    {
+        return $this->hasMany('App\Models\RelationshipVehi', 'year_id');
+    }
 }
