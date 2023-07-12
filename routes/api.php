@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\CustomerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
@@ -40,3 +41,5 @@ Route::resource('brand', BrandController::class)->names('api.brand');
 Route::resource('vehimodel', VehimodelController::class)->names('api.vehimodel');
 
 Route::resource('vehiversion', VehiversionController::class)->names('api.vehiversion');
+
+Route::resource('customer', CustomerController::class)->names('api.customer'); 

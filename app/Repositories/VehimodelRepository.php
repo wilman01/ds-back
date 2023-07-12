@@ -18,8 +18,10 @@ class VehiModelRepository extends BaseRepository
     public function allModel($request, $where)
     {
         $query = $this->model
+                ->select('vehi_models.id', 'vehi_models.model', 'vehi_models.status')
                 ->join('relationship_vehi', 'vehi_models.id', '=', 'relationship_vehi.vehi_model_id')
                 ->where($where)
+                ->groupBy('vehi_models.model')
                 ->paginate(10);
         return $query;
     }
