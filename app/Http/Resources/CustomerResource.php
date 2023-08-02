@@ -28,6 +28,6 @@ class CustomerResource extends JsonResource
             'links'=>[
                 'self'=>url('/api/customer/' . $this->resource->getRouteKey())
             ]
-    ];
+        ];
     }
 }
