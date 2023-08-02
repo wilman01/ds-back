@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CustomerController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\QuotationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VehimodelController;
@@ -43,3 +43,5 @@ Route::resource('vehimodel', VehimodelController::class)->names('api.vehimodel')
 Route::resource('vehiversion', VehiversionController::class)->names('api.vehiversion');
 
 Route::resource('customer', CustomerController::class)->names('api.customer'); 
+
+Route::resource('quotation', QuotationController::class)->names('api.cotizacion');

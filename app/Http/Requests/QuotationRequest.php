@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class CustomerRequest extends FormRequest
+class QuotationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,10 @@ class CustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cedula' => 'required|string|max:8',
-            'name' => 'required|string|max:55',
-            'last_name' => 'required|string|max:55',
-            'email' => 'required|string|email',
-            'phone' => 'required|string|max:20'
+            'type_id' => 'required|numeric',
+            'supplier' => 'required|string|max:126',
+            'customer_id' => 'required|numeric|exists:customers,id',
+            'policy' => 'required|string',
         ];
     }
 

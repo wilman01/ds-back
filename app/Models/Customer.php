@@ -9,5 +9,11 @@ class Customer extends Model
 {
     use HasFactory;
 
+    public mixed $id;
     protected $fillable = ['name', 'last_name', 'cedula', 'email', 'phone'];
+
+    public function quotations()
+    {
+        return $this->hasMany(Quotation::class);
+    }
 }
