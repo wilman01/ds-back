@@ -29,5 +29,6 @@ class CustomerResource extends JsonResource
                 'self'=>url('/api/customer/' . $this->resource->getRouteKey())
             ]
         ];
+
     }
 }

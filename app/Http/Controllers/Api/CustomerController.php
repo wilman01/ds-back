@@ -34,6 +34,7 @@ class CustomerController extends Controller
 
     public function store(CustomerRequest $request)
     {
+
         $customer = Customer::firstOrCreate([
             'cedula' => $request->cedula,
         ],     
