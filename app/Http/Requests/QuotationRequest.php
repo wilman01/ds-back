@@ -29,7 +29,7 @@ class QuotationRequest extends FormRequest
             'type_id' => 'required|numeric',
             'supplier' => 'required|string|max:126',
             'customer_id' => 'required|numeric|exists:customers,id',
-            'policy' => 'required|string',
+            'policy' => 'required|json',
         ];
     }
 

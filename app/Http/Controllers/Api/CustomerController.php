@@ -19,25 +19,24 @@ class CustomerController extends Controller
 
     public function __construct(CustomerRepository $customerRepository)
     {
-        $this->middleware(['api', 'jwt.verify'])->except(['index', 'store']);    
+        $this->middleware(['api', 'jwt.verify'])->except(['index', 'store']);
 
         $this->customerRepository = $customerRepository;
     }
 
 
-    public function index()
+    public function index(Request $request):CustomerCollection
     {
-        $customer = $this->customerRepository->all();
-        
+        $customer = $this->customerRepository->all($request->q, $request->size);
+
         return CustomerCollection::make($customer);
     }
 
     public function store(CustomerRequest $request)
     {
-
         $customer = Customer::firstOrCreate([
             'cedula' => $request->cedula,
-        ],     
+        ],
         [
             'name' => $request->name,
             'last_name' => $request->last_name,
@@ -54,7 +53,7 @@ class CustomerController extends Controller
         return CustomerResource::make($customer);
     }
 
-    
+
 
     public function update(Request $request, Customer $customer)
     {

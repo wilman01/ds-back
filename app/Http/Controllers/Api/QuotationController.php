@@ -24,11 +24,8 @@ class QuotationController extends Controller
 
     public function index(Request $request): QuotationCollection
     {
-        $where = [];
-   /*     if($request->q){
-            $where[]=  ['model', 'like', "%$request->q%"];
-        }*/
-        $quotation = $this->quotationRepository->all($where);
+        $where = $request->q ? $request->q : '';
+        $quotation = $this->quotationRepository->allQ($where);
         return QuotationCollection::make($quotation);
     }
 

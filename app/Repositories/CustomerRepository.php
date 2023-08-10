@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Customer;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CustomerRepository extends BaseRepository
 {
@@ -12,5 +13,5 @@ class CustomerRepository extends BaseRepository
     {
         parent::__construct($customer);
     }
-   
+
 }
