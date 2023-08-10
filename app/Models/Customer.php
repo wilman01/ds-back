@@ -12,6 +12,15 @@ class Customer extends Model
     public mixed $id;
     protected $fillable = ['name', 'last_name', 'cedula', 'email', 'phone'];
 
+    public function scopeBusqueda($query, $s)
+    {
+        if ($s) {
+            return $query->where('cedula', 'like', "%$s%")
+                ->orWhere('name', 'like', "%$s%")
+                ->orWhere('last_name', 'like', "%$s%")
+                ->orWhere('email', 'like', "%$s%");
+        }
+    }
     public function quotations()
     {
         return $this->hasMany(Quotation::class);

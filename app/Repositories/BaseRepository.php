@@ -15,15 +15,16 @@ class BaseRepository
         $this->relations = $relations;
     }
 
-    public function all($where = []){
-         $query = $this->model;
+    public function all($where = '', $size=''){
+        $query = $this->model;
+
+        $size = is_numeric($size) ? $size : 10;
 
         if(!empty($this->relations)){
             $query = $query->with($this->relations);
         }
-
-        return $query->where($where)
-                ->paginate(10);
+        return $query->Busqueda($where)
+                ->paginate($size);
     }
 
     public function get($id)

@@ -16,6 +16,13 @@ class Quotation extends Model
         'policy',
     ];
 
+    public function scopeBusqueda($query, $search)
+    {
+        $query->when($search ?? false, function($query, $search){
+            $query->where('customer.name', 'like', "%$search%");
+        });
+
+    }
     public function customer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Customer::class);
