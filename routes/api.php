@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VehimodelController;
 use App\Http\Controllers\Api\YearController;
 use App\Http\Controllers\Api\VehiversionController;
+use App\Http\Controllers\Api\ProviderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +22,9 @@ use App\Http\Controllers\Api\VehiversionController;
 */
 
 Route::group([
-    
+
     'prefix' => 'auth'
-    
+
 ], function ($router) {
     Route::post('logout', [UserController::class, 'logout']);
     Route::post('user', [UserController::class, 'getAuthenticatedUser']);
@@ -42,6 +43,8 @@ Route::resource('vehimodel', VehimodelController::class)->names('api.vehimodel')
 
 Route::resource('vehiversion', VehiversionController::class)->names('api.vehiversion');
 
-Route::resource('customer', CustomerController::class)->names('api.customer'); 
+Route::resource('customer', CustomerController::class)->names('api.customer');
 
 Route::resource('quotation', QuotationController::class)->names('api.cotizacion');
+
+Route::resource('provider', ProviderController::class)->names('api.provider');
