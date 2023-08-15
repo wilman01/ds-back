@@ -38,8 +38,8 @@ class RelationshipvehiRepository extends BaseRepository
                         });
                     })
                     ->paginate(10);
-        
+
         return $querybuilder;
     }
-    
+
 }

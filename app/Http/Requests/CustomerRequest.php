@@ -29,7 +29,7 @@ class CustomerRequest extends FormRequest
             'cedula' => 'required|string|max:8',
             'name' => 'required|string|max:55',
             'last_name' => 'required|string|max:55',
-            'email' => 'required|string|email',
+            'email' => 'required|string|email|unique:customers',
             'phone' => 'required|string|max:20'
         ];
     }
