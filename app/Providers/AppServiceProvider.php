@@ -7,6 +7,7 @@ use App\Models\Quotation;
 use App\Observers\CustomerObserver;
 use App\Observers\QuotationObserver;
 use Illuminate\Support\ServiceProvider;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Customer::observe(CustomerObserver::class);
         Quotation::observe(QuotationObserver::class);
+
+        Carbon::setLocale('es');
+        setlocale(LC_TIME, "es_ES");
     }
 }

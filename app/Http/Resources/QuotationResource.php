@@ -22,6 +22,8 @@ class QuotationResource extends JsonResource
                 "type_id" => $this->resource->type_id,
                 "supplier"=>$this->resource->supplier,
                 "policy"=> $this->resource->policy,
+                //"create_at"=>$this->resource->created_at->diffForHumans()
+                "create_at"=>$this->resource->created_at
             ],
             'links'=>[
                 'self'=>url('/api/quotation/' . $this->resource->getRouteKey())

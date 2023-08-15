@@ -21,9 +21,10 @@ class VehiModelRepository extends BaseRepository
                 ->select('vehi_models.id', 'vehi_models.model', 'vehi_models.status')
                 ->join('relationship_vehi', 'vehi_models.id', '=', 'relationship_vehi.vehi_model_id')
                 ->where($where)
+                ->orderBy('vehi_models.model')
                 ->groupBy('vehi_models.model')
                 ->paginate(10);
         return $query;
     }
-    
+
 }

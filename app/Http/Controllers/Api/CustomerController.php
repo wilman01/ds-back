@@ -8,6 +8,7 @@ use App\Http\Resources\CustomerCollection;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use App\Repositories\CustomerRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
@@ -41,6 +42,7 @@ class CustomerController extends Controller
             'name' => $request->name,
             'last_name' => $request->last_name,
             'email' => $request->email,
+            'birthdate' => Carbon::createFromFormat( 'd/m/Y', $request->birthdate),
             'phone' => $request->phone,
         ]);
 
@@ -58,10 +60,10 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
         $validator = Validator::make($request->all(), [
-            'cedula' => 'required|string|max:8|unique:customers,cedula,'.$customer->id,
+            'cedula' => 'required|string|max:8|unique:customers,cedula,'.$customer['id'],
             'name' => 'required|string|max:55',
             'last_name' => 'required|string|max:55',
-            'email' => 'required|string|email|unique:customers,email,'.$customer->id,
+            'email' => 'required|string|email|unique:customers,email,'.$customer['id'],
             'phone' => 'required|string|max:20'
         ]);
 

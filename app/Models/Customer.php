@@ -10,7 +10,7 @@ class Customer extends Model
     use HasFactory;
 
     public mixed $id;
-    protected $fillable = ['name', 'last_name', 'cedula', 'email', 'phone'];
+    protected $fillable = ['name', 'last_name', 'cedula', 'email', 'birthdate', 'phone'];
 
     public function scopeBusqueda($query, $s)
     {

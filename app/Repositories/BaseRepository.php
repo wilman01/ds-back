@@ -24,6 +24,7 @@ class BaseRepository
             $query = $query->with($this->relations);
         }
         return $query->Busqueda($where)
+                ->orderBy('id', 'desc')
                 ->paginate($size);
     }
 
