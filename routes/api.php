@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\PolicyController;
+use App\Http\Controllers\Api\ProviderController;
 use App\Http\Controllers\Api\QuotationController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VehimodelController;
-use App\Http\Controllers\Api\YearController;
 use App\Http\Controllers\Api\VehiversionController;
-use App\Http\Controllers\Api\ProviderController;
+use App\Http\Controllers\Api\YearController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +49,5 @@ Route::resource('customer', CustomerController::class)->names('api.customer');
 Route::resource('quotation', QuotationController::class)->names('api.cotizacion');
 
 Route::resource('provider', ProviderController::class)->names('api.provider');
+
+Route::resource('policy',PolicyController::class)->names('api.policy');

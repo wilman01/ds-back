@@ -27,4 +27,10 @@ class Provider extends Model
         });
 
     }
+
+    //relación uno a muchos
+    public function policies()
+    {
+        $this->hasMany(Policy::class);
+    }
 }
