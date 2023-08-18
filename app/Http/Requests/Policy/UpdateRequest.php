@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
-
-use Illuminate\Foundation\Http\FormRequest;
+namespace App\Http\Requests\Policy;
 
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class CustomerRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,20 +25,18 @@ class CustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cedula' => 'required|string|max:8',
-            'name' => 'required|string|max:55',
-            'last_name' => 'required|string|max:55',
-            'email' => 'required|string|email',
-            'phone' => 'required|string|max:20'
+            'type_id'=>'required|numeric',
+            'provider_id'=>'required|numeric|exists:providers,id',
+            'name' => 'required|string|unique:policies,name,'.$this->route('policy')->id.'|max:128',
+            'amount' => 'required|numeric',
+            'coverage' => 'required|numeric',
+            'detail' => 'required|string',
         ];
     }
-
-
     protected function failedValidation(Validator $validator){
         $errors = (new ValidationException($validator))->errors();
         throw new HttpResponseException(
             response()->json($errors,400)
         );
-
     }
 }

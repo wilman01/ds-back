@@ -35,6 +35,7 @@ class CustomerController extends Controller
 
     public function store(CustomerRequest $request)
     {
+        $birthdate = $request->birthdate ? Carbon::createFromFormat( 'd/m/Y', $request->birthdate) : null;
         $customer = Customer::firstOrCreate([
             'cedula' => $request->cedula,
         ],
@@ -42,7 +43,7 @@ class CustomerController extends Controller
             'name' => $request->name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'birthdate' => Carbon::createFromFormat( 'd/m/Y', $request->birthdate),
+            'birthdate' => $birthdate,
             'phone' => $request->phone,
         ]);
 
