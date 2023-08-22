@@ -5,28 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Policy extends Model
+class Type extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type_id', 'provider_id', 'name', 'amount', 'coverage', 'description'];
+    protected $fillable = [
+        'name'
+    ];
 
     public function scopeBusqueda($query, $search)
     {
         $query->when($search ?? false, function($query, $s){
             $query->where('name', 'like', "%$s%");
         });
-
     }
 
-    //relaciones uno a muchos inversa
-    public function provider()
+    //Relacion uno a muchos
+    public function policies()
     {
-        return $this->belongsTo(Provider::class);
-    }
-
-    public function type()
-    {
-        return $this->belongsTo(Type::class);
+        return $this->hasMany(Policy::class);
     }
 }

@@ -22,12 +22,15 @@ class PolicyResource extends JsonResource
                 "name"=>$this->resource->name,
                 "amount"=> (string)$this->resource->amount,
                 "coverage"=>(string)$this->resource->coverage,
-                "detail"=> $this->resource->detail,
+                "description"=> $this->resource->description,
             ],
             'links'=>[
                 'self'=>url('/api/policy/' . $this->resource->getRouteKey()),
             ]
         ];
+        if($this->resource->type){
+            $policy['atribute']['type'] = $this->resource->type->name;
+        }
 
         if ($this->resource->provider){
             $policy['atribute']['provider_id'] =(string) $this->resource->provider_id;

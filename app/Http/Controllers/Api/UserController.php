@@ -40,27 +40,31 @@ class UserController extends Controller
 
     public function authenticate(Request $request)
     {
-      $credentials = $request->only('email', 'password');
+        $credentials = $request->only('email', 'password');
 
-      $userEnable = User::where('email', $request->get('email'))->first();
-      
-      if ($userEnable->status == '0') {
-        return response()->json(['error' => 'Usuario Inhabilitado'], 403);
-      }
+        try {
+            $userEnable = User::where('email', $request->get('email'))->Enable()->first();
 
-      try {
-          if (! $token = JWTAuth::attempt($credentials)) {
-              return response()->json(['error' => 'invalid_credentials'], 400);
-          }
-      } catch (JWTException $e) {
-          return response()->json(['error' => 'could_not_create_token'], 500);
-      }
+            if (! $userEnable) {
+                return response()->json(['error' => 'Usuario no encontrado'], 403);
+            }
 
-      $user = User::where('email', $request->email)->first();
-      $payload = [
-        "data"=>UserResource::make($user),
-        "token"=>$token,
-      ];
+
+            //if (! $token = JWTAuth::attempt($credentials)) {
+            if (! $token = auth()->attempt($credentials)) {
+                return response()->json(['error' => 'invalid_credentials'], 400);
+            }
+
+            $token = auth()->setTTL(7200)->attempt($credentials);
+        }
+        catch (JWTException $e) {
+            return response()->json(['error' => 'could_not_create_token'], 500);
+        }
+
+        $payload = [
+        "data"=>UserResource::make($userEnable),
+        "token"=>$token
+        ];
       $t = JWT::encode($payload);
       return response()->json(compact('t'));
     }
@@ -81,14 +85,11 @@ class UserController extends Controller
         }
 
         return UserResource::make($user);
-        //return response()->json(compact('user'));
     }
 
 
     public function register(Request $request)
     {
-        //dd($request);
-        //Log::info($request);
         $validator = Validator::make($request->all(), [
             'cedula' => 'required|string|max:10|unique:users',
             'name' => 'required|string|max:255',
@@ -116,7 +117,7 @@ class UserController extends Controller
 
         //return response()->json(compact('user','token'),201);
 
-                
+
         $email = new RegisterMailable($request->all());
         Mail::to('rafahel171@gmail.com')->send($email);
         return UserResource::make($user);
@@ -133,7 +134,7 @@ class UserController extends Controller
             'status' => 'required|numeric',
             'role'=> 'required'
         ]);
-        
+
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(),400);
         }
