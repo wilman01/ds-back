@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\PolicyController;
 use App\Http\Controllers\Api\ProviderController;
 use App\Http\Controllers\Api\QuotationController;
+use App\Http\Controllers\Api\TypeController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VehimodelController;
 use App\Http\Controllers\Api\VehiversionController;
@@ -51,3 +52,7 @@ Route::resource('quotation', QuotationController::class)->names('api.cotizacion'
 Route::resource('provider', ProviderController::class)->names('api.provider');
 
 Route::resource('policy',PolicyController::class)->names('api.policy');
+
+Route::resource('type', TypeController::class)->names('api.type');
+
+Route::get('type-policy/{policy}', [TypeController::class, 'withPolicies'])->name('api.type.withPolices');

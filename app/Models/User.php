@@ -49,7 +49,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
     public static function search($query = '', $size=''){
-        
+
         if (!$size) {
             $size = 10;
         }
@@ -63,6 +63,15 @@ class User extends Authenticatable implements JWTSubject
                         ->paginate($size);
     }
 
+    //SCOPE
+    public function scopeEnable($query)
+    {
+        $query->where('status', 1);
+    }
+
+
+
+    //JWT
     public function getJWTIdentifier()
     {
     	return $this->getKey();

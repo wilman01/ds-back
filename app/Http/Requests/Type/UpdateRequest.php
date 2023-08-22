@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Policy;
+namespace App\Http\Requests\Type;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -25,12 +25,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type_id'=>'required|numeric',
-            'provider_id'=>'required|numeric|exists:providers,id',
-            'name' => 'required|string|max:128',
-            'amount' => 'required|numeric',
-            'coverage' => 'required|numeric',
-            'description' => 'required|string',
+            'name' => 'required|string|unique:types,name,'.$this->route('type')->id.'|max:128',
         ];
     }
     protected function failedValidation(Validator $validator){

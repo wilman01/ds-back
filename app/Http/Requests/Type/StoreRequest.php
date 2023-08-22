@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Policy;
+namespace App\Http\Requests\Type;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +25,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type_id'=>'required|numeric',
-            'provider_id'=>'required|numeric|exists:providers,id',
-            'name' => 'required|string|max:128',
-            'amount' => 'required|numeric',
-            'coverage' => 'required|numeric',
-            'description' => 'required|string',
+            'name' => 'required|string|max:128|unique:types',
         ];
     }
     protected function failedValidation(Validator $validator){

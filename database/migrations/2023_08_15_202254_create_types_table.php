@@ -11,17 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('policies', function (Blueprint $table) {
+        Schema::create('types', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
-
-            $table->unsignedBigInteger('provider_id');
             $table->string('name');
-            $table->double('amount');
-            $table->double('coverage');
-            $table->string('description');
 
             $table->timestamps();
         });
@@ -32,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('policies');
+        Schema::dropIfExists('types');
     }
 };
