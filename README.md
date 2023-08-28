@@ -16,7 +16,7 @@ Esta aplicación esta construida para ofrecer una serie de servicios mediante ll
 
 ## Autenticación
 <p>La aplicación ofrece rutas publicas que serán utilizadas por los clientes desde la página web para solicitar las cotizaciones. Igualmente existen rutas de Administrador las cuales requieren un token válido generado por ésta Api el cual tendrá un TTL (time to live) de dos horas que serán asignados a un usuario registrado en el sistema.</p>
-<p>Esta información sera indicada más adelante en cada una de las rutas</p>
+
 
 ## Api Referencias
 
@@ -107,6 +107,7 @@ role:{string|exists:role}
 ### Módulo de Años
 
 - Listar Años (GET)
+
 ~~~
 /api/year/{id}?q='string'
 
@@ -117,6 +118,7 @@ opcional {q} = variable para hacer busquedas
 ### Módulo de Marcas de Vehículos
 
 - Listar Marcas (GET)
+
 Devuelve una lista páginada de las marcas de un vehículo. Pude solicitar las marcas de un año especifico enviando el id de un año registrado en el sistema.
 ~~~
 /api/brand?q={string}&year_id={id}
@@ -137,7 +139,7 @@ El módulo de marcas tambien tiene a la disposición rutas para actualizar y cre
 
 ### Módulo de Modelos de Vehículos
 
--Listar Modelos (GET)
+- Listar Modelos (GET)
 
 Devuelve una lista páginada de los modelos que pertenecen a una marca de un vehículo.
 
@@ -165,7 +167,7 @@ El módulo modelos tambien tiene a disposicion rutas para crear y actualizar, si
 
 ### Módulo de Versión Vehículos
 
--Listar Versiones (GET)
+- Listar Versiones (GET)
 
 Devuelve una lista páginada de la version del vehiculo.
 
@@ -192,6 +194,7 @@ Consultar la version de un vehículo conociendo el id
 Los Proveedores son las distintas aseguradoras que ofrecen las pólizas de seguro en el sistema.
 
 - Crear Proveedores (POST)
+
 Permite registrar los datos de un proveedor. Este registro es obligatorio antes de intentar registrar alguna póliza.
 
 ~~~
@@ -204,7 +207,8 @@ email:{string|email}
 phone:{string}
 ~~~
 
--Listar Proveedores (GET)
+- Listar Proveedores (GET)
+
 Devuelve una lista páginada de los proveedores
 
 ~~~
@@ -233,7 +237,7 @@ Funcionalidad que permite gestionar la información de las Pólizas que ofrecen 
 
 Habrá un registro fijo en la BD el cual servirá para la relación en BD cuando exista una cotización de Seguro para Vehículo.
 
-Restricciones:
+###### Restricciones:
 
 El campo name debe ser único.
 
@@ -261,7 +265,7 @@ coverage: {double}
 description:{string}
 ~~~
 
--Listar Pólizas (GET)
+- Listar Pólizas (GET)
 Devuelve una lista páginada de las pólizas.
 
 ~~~
@@ -302,7 +306,7 @@ Funcionalidad que permite gestionar un parámetro para clasificar las Cotizacion
 
 Habrá un registro fijo en la BD el cual servirá para la relación en BD cuando exista una cotización de Seguro para Vehículo.
 
-Restricciones:
+###### Restricciones:
 
 El campo name se refiere al identificador del tipo, debe ser único y es obligatorio.
 
@@ -311,6 +315,7 @@ Existe un método adicional al Crud (withPolicies) que permite obtener el tipo c
 Todos los métodos están protegidos por Token.
 
 - Crear Tipos (POST)
+
   Permite registrar un tipo. Solo posee un campo y debe ser único.
 
 ~~~
@@ -320,7 +325,7 @@ name: {string|unique:types}
 
 ~~~
 
-Listar Tipos (GET)
+- Listar Tipos (GET)
 
 Devuelve una lista páginada de los tipos
 ~~~
@@ -340,7 +345,7 @@ api/type/{id}
 
 ~~~
 
-Actualizar Tipo (PUT)
+- Actualizar Tipo (PUT)
 
 Permite actualizar los datos del registro de las pólizas.
 
@@ -351,7 +356,7 @@ name: {string|unique:types}
 
 ~~~
 
-Obtener Tipo con Pólizas (GET)
+- Obtener Tipo con Pólizas (GET)
 
 Puede requerir una lista de las pólizas que pertenecen a un tipo enviando el nombre del tipo.
 
@@ -445,7 +450,7 @@ api/quotation
 opcional {q} = variable para hacer busquedas.
 ~~~
 
-- Mostrar Cliente (GET)
+- Mostrar Cotización (GET)
 
 Devuelve el registro de un cliente conociendo su id.
 
