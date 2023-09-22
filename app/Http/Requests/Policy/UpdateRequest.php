@@ -25,8 +25,8 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type_id'=>'required|numeric',
-            'provider_id'=>'required|numeric|exists:providers,id',
+            'type_id'=>'numeric',
+            'provider_id'=>'numeric|exists:providers,id',
             'name' => 'required|string|max:128',
             'amount' => 'required|numeric',
             'coverage' => 'required|numeric',
