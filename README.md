@@ -27,6 +27,10 @@ application/json
 ### Ruta Ráiz servidor de prueba
 [http://ec2-54-91-207-60.compute-1.amazonaws.com/api](#)
 
+### Ruta Ráiz servidor DESPERTAR SEGUROS
+https://ds-back.despertarseguros.com/api](#)
+
+
 ### Generalidades de las respuestas
 
 La Api responde en formato json basado en una forma reducida de la especificación json:api según [www.jsonapi.org](https://jsonapi.org/)
