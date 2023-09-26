@@ -78,4 +78,11 @@ class CustomerController extends Controller
 
         return CustomerResource::make($customer);
     }
+
+    public function destroy(Customer $customer):CustomerResource
+    {
+        $customer = $this->customerRepository->delete($customer);
+
+        return CustomerResource::make($customer);
+    }
 }

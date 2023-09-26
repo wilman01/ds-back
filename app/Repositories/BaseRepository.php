@@ -42,4 +42,10 @@ class BaseRepository
         $model->save();
         return $model;
     }
+
+    public function delete(Model $model)
+    {
+        $model->delete();
+        return $model;
+    }
 }
