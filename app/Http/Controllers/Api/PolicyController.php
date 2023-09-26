@@ -47,4 +47,11 @@ class PolicyController extends Controller
 
         return PolicyResource::make($policy);
     }
+
+    public function destroy(Policy $policy):PolicyResource
+    {
+        $policy = $this->policyRepository->delete($policy);
+
+        return PolicyResource::make($policy);
+    }
 }

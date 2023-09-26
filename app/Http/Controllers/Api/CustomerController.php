@@ -33,10 +33,10 @@ class CustomerController extends Controller
         return CustomerCollection::make($customer);
     }
 
-    public function store(CustomerRequest $request)
+    public function store(Request $request)
     {
-        $birthdate = $request->birthdate ? Carbon::createFromFormat( 'd/m/Y', $request->birthdate) : null;
-        $customer = Customer::firstOrCreate([
+        $request['birthdate'] = $request->birthdate ? Carbon::createFromFormat( 'd/m/Y', $request->birthdate) : null;
+    /*    $customer = Customer::firstOrCreate([
             'cedula' => $request->cedula,
         ],
         [
@@ -45,7 +45,25 @@ class CustomerController extends Controller
             'email' => $request->email,
             'birthdate' => $birthdate,
             'phone' => $request->phone,
-        ]);
+        ]);*/
+        $customer = Customer::Where('cedula',$request->all('cedula'))->first();
+
+        if(is_null($customer)){
+            $validator = Validator::make($request->all(), [
+                    'cedula' => 'required|string|max:8|unique:customers',
+                    'name' => 'required|string|max:55',
+                    'last_name' => 'required|string|max:55',
+                    'email' => 'required|string|email|unique:customers',
+                    'phone' => 'required|string|max:20'
+                ]);
+
+            if($validator->fails()){
+                return response()->json($validator->errors()->toJson(),400);
+            }
+
+            $customer = new Customer($request->all());
+            $customer = $this->customerRepository->save($customer);
+        }
 
         return CustomerResource::make($customer);
     }
@@ -75,6 +93,13 @@ class CustomerController extends Controller
         $customer->fill($request->all());
 
         $customer = $this->customerRepository->save($customer);
+
+        return CustomerResource::make($customer);
+    }
+
+    public function destroy(Customer $customer):CustomerResource
+    {
+        $customer = $this->customerRepository->delete($customer);
 
         return CustomerResource::make($customer);
     }

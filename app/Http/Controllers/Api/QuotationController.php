@@ -66,4 +66,11 @@ class QuotationController extends Controller
 
         return QuotationResource::make($quotation);
     }
+
+    public function destroy(Quotation $quotation):QuotationResource
+    {
+        $quotation = $this->quotationRepository->delete($quotation);
+
+        return QuotationResource::make($quotation);
+    }
  }

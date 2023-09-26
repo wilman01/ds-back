@@ -25,11 +25,12 @@ class CustomerRequest extends FormRequest
      */
     public function rules(): array
     {
+        //dd(request()->request);
         return [
             'cedula' => 'required|string|max:8',
             'name' => 'required|string|max:55',
             'last_name' => 'required|string|max:55',
-            'email' => 'required|string|email|unique:customers',
+            'email' => 'required|string|unique:customers|email',
             'phone' => 'required|string|max:20'
         ];
     }
