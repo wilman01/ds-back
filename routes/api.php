@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\DetailController;
 use App\Http\Controllers\Api\PolicyController;
 use App\Http\Controllers\Api\ProviderController;
 use App\Http\Controllers\Api\QuotationController;
@@ -56,3 +57,5 @@ Route::resource('policy',PolicyController::class)->names('api.policy');
 Route::resource('type', TypeController::class)->names('api.type');
 
 Route::get('type-policy/{policy}', [TypeController::class, 'withPolicies'])->name('api.type.withPolices');
+
+Route::resource('detail', DetailController::class)->names('api.detail');

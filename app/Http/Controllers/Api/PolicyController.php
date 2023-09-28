@@ -32,6 +32,8 @@ class PolicyController extends Controller
         $policy = new Policy($request->all());
         $policy = $this->policyRepository->save($policy);
 
+        $policy->details()->sync($request->input('details', []));
+
         return PolicyResource::make($policy);
     }
 
@@ -45,6 +47,7 @@ class PolicyController extends Controller
         $policy->fill($request->all());
         $policy = $this->policyRepository->save($policy);
 
+        $policy->details()->sync($request->input('details', []));
         return PolicyResource::make($policy);
     }
 

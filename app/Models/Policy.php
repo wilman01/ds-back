@@ -29,4 +29,10 @@ class Policy extends Model
     {
         return $this->belongsTo(Type::class);
     }
+
+    //relacion muchos a muchos
+    public function details()
+    {
+        return $this->belongsToMany(Detail::class);
+    }
 }
