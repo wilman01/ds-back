@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Policy;
+namespace App\Http\Requests\Detail;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -16,19 +16,19 @@ class StoreRequest extends FormRequest
     {
         return true;
     }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
     public function rules(): array
     {
-        //dd($this->request->all());
         return [
-            'type_id'=>'required|numeric',
-            'provider_id'=>'required|numeric|exists:providers,id',
             'name' => 'required|string|max:128',
-            'amount' => 'required|numeric',
-            'coverage' => 'required|numeric',
-            'description' => 'required|string',
-            'details.*' => 'string',
         ];
     }
+
     protected function failedValidation(Validator $validator){
         $errors = (new ValidationException($validator))->errors();
         throw new HttpResponseException(

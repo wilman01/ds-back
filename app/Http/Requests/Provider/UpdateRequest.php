@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:providers,rif,'.$this->route('provider')->id.'|max:128',
+            'name' => 'required|string|unique:providers,name,'.$this->route('provider')->id.'|max:128',
             'rif' => 'required|regex:(^[JGVE][-][0-9]{8}[-][0-9]$)|unique:providers,rif,'.$this->route('provider')->id.'|max:128',
             'contact' => 'required|string|max:128',
             'email' => 'required|email|max:100',

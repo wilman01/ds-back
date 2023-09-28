@@ -37,6 +37,9 @@ class PolicyResource extends JsonResource
             $policy['atribute']['provider_name'] =$this->resource->provider->name;
             $policy['links']['provider_link'] = url('/api/provider/' . $this->resource->provider_id);
         }
+        if ($this->resource->details){
+            $policy['atribute']['details'] = DetailResource::collection($this->resource->details);
+        }
 
         return $policy;
     }
