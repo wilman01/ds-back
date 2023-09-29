@@ -62,3 +62,4 @@ Route::get('type-policy/{policy}', [TypeController::class, 'withPolicies'])->nam
 Route::resource('detail', DetailController::class)->names('api.detail');
 
 Route::resource('health', HealthController::class)->names('api.health');
+
