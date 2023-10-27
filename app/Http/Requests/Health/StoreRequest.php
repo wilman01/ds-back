@@ -30,7 +30,6 @@ class StoreRequest extends FormRequest
             'policy_id' => 'required|numeric|exists:policies,id',
             'customer_id' => 'required|numeric|exists:customers,id',
             'attended' => [new Enum(Attended::class)],
-            //'ages.*'=>'string',
         ];
     }
 

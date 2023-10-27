@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Customer;
+use App\Models\Health;
 use App\Models\Quotation;
 use App\Observers\CustomerObserver;
+use App\Observers\HealthObserver;
 use App\Observers\QuotationObserver;
 use Illuminate\Support\ServiceProvider;
 use Carbon\Carbon;

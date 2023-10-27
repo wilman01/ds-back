@@ -7,9 +7,12 @@ use App\Http\Requests\Health\StoreRequest;
 use App\Http\Requests\Health\UpdateRequest;
 use App\Http\Resources\HealthCollection;
 use App\Http\Resources\HealthResource;
+use App\Jobs\HealthCreateJob;
+use App\Mail\HealthMailable;
 use App\Models\Health;
 use App\Repositories\HealthRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HealthController extends Controller
 {
@@ -37,12 +40,9 @@ class HealthController extends Controller
             foreach ($request->get('ages') as $k => $v)
             {
                 $health->ages()->sync([$health->id=>$v],false);
-                //$health->ages()->attach([$health->id=>$v]);
             }
         }
-
-
-        //$health->ages()->sync([$request->input('ages',[])]);
+        dispatch(new HealthCreateJob($health));
 
         return HealthResource::make($health);
     }
@@ -52,8 +52,13 @@ class HealthController extends Controller
         $health->fill($request->all());
         $health = $this->healthRepository->save($health);
 
-        $health->ages()->sync($request->input('ages',[]));
-
+        if ($request->get('ages')){
+            $health->ages()->detach();
+            foreach ($request->get('ages') as $k => $v)
+            {
+                $health->ages()->sync([$health->id=>$v],false);
+            }
+        }
         return HealthResource::make($health);
     }
 
