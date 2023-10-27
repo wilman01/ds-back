@@ -43,8 +43,6 @@ class HealthController extends Controller
             }
         }
         dispatch(new HealthCreateJob($health));
-//        Mail::to($health->customer->email)
-//            ->send(new HealthMailable($health));
 
         return HealthResource::make($health);
     }
