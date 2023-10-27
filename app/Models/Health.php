@@ -14,7 +14,6 @@ class Health extends Model
     protected $fillable = [
         'policy_id',
         'customer_id',
-        'type_id',
         'attended'
     ];
 
@@ -38,6 +37,12 @@ class Health extends Model
     public function policy():\Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Policy::class);
+    }
+
+    public function ages():\Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Age::class)
+            ->withPivot('quantity');
     }
 
 }

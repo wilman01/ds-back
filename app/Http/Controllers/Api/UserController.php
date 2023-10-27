@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 //use JWTAuth;
 use Jerry\JWT\JWT;
+use Spatie\FlareClient\FlareMiddleware\RemoveRequestIp;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
@@ -138,8 +139,7 @@ class UserController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(),400);
         }
-
-        $user->update($request->all());
+        $user->update($request->except('password') + ['password'=>Hash::make($request->get('password'))]);
         $user->syncRoles($request->role);
 
         return UserResource::make($user);

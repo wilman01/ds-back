@@ -17,7 +17,6 @@ class BaseRepository
 
     public function all($where = '', $size=''){
         $query = $this->model;
-
         $size = is_numeric($size) ? $size : 10;
 
         if(!empty($this->relations)){

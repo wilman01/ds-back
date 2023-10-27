@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->foreignId('policy_id')->constrained()->onDelete('cascade');
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
-            $table->foreignId('type_id')->constrained()->onDelete('cascade');
+            //$table->foreignId('type_id')->constrained()->onDelete('cascade');
             $table->enum('attended',['pending', 'attended'])->default('pending');
 
             $table->timestamps();

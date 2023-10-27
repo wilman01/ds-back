@@ -20,7 +20,7 @@ class QuotationRepository extends BaseRepository
         $querybuilder = $this->model
             ->select('quotations.id',
                 'quotations.type_id',
-                'quotations.supplier',
+                'quotations.provider_id',
                 'quotations.policy',
                 'quotations.customer_id',
                 'customers.cedula',
@@ -30,7 +30,6 @@ class QuotationRepository extends BaseRepository
                 'customers.phone')
             ->join('customers', 'quotations.customer_id', '=', 'customers.id')
             ->when($q ?? false, function($query, $busqueda){
-                $query->where('quotations.supplier', 'LIKE', "%$busqueda%");
                 $query->orWhere('customers.cedula', 'LIKE', "%$busqueda%");
                 $query->orWhere('customers.name', 'LIKE', "%$busqueda%");
                 $query->orWhere('customers.last_name', 'LIKE', "%$busqueda%");

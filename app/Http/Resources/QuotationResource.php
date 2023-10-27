@@ -20,7 +20,7 @@ class QuotationResource extends JsonResource
             'atribute'=>[
                 "id"=> (string) $this->resource->getRouteKey(),
                 "type_id" => $this->resource->type_id,
-                "supplier"=>$this->resource->supplier,
+                "type_name" => $this->resource->type->name,
                 "policy"=> $this->resource->policy,
                 //"create_at"=>$this->resource->created_at->diffForHumans()
                 "create_at"=>$this->resource->created_at
@@ -29,13 +29,13 @@ class QuotationResource extends JsonResource
                 'self'=>url('/api/quotation/' . $this->resource->getRouteKey())
             ]
         ];
-        if ($this->resource->customer){
-            $quotation['atribute']['customer_id'] =(string) $this->resource->customer_id;
-            $quotation['atribute']['customer_cedula'] =$this->resource->customer->cedula;
-            $quotation['atribute']['customer_name'] =$this->resource->customer->name . " " . $this->resource->customer->last_name;
-            $quotation['atribute']['customer_email'] =$this->resource->customer->email;
-            $quotation['atribute']['customer_phone'] =$this->resource->customer->phone;
 
+        if ($this->resource->customer){
+            $quotation['atribute']['customer'] = CustomerResource::make($this->resource->customer);
+        }
+
+        if ($this->resource->provider){
+            $quotation['atribute']['provider'] = ProviderResource::make($this->resource->provider);
         }
 
         return $quotation;

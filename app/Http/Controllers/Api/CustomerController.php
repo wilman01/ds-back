@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Enum;
 
 
 class CustomerController extends Controller
@@ -83,11 +84,12 @@ class CustomerController extends Controller
             'name' => 'required|string|max:55',
             'last_name' => 'required|string|max:55',
             'email' => 'required|string|email|unique:customers,email,'.$customer['id'],
-            'phone' => 'required|string|max:20'
+            'phone' => 'required|string|max:20',
+            'status' => [new Enum(\App\Enums\Customer::class)]
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors()->toJson(),400);
+            return response()->json($validator->errors(),400);
         }
 
         $customer->fill($request->all());

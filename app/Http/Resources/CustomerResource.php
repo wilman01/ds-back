@@ -25,6 +25,7 @@ class CustomerResource extends JsonResource
                 "email"=> $this->resource->email,
                 "birthdate"=>$this->resource->birthdate,
                 "phone"=>$this->resource->phone,
+                "status"=>$this->resource->status
             ],
             'links'=>[
                 'self'=>url('/api/customer/' . $this->resource->getRouteKey())

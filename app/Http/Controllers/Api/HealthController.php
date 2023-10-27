@@ -17,7 +17,7 @@ class HealthController extends Controller
 
     public function __construct(HealthRepository $healthRepository)
     {
-        $this->middleware(['api', 'jwt.verify']);
+        $this->middleware(['api', 'jwt.verify'])->except(['store']);
 
         $this->healthRepository = $healthRepository;
     }
@@ -33,6 +33,17 @@ class HealthController extends Controller
         $health = new Health($request->all());
         $health = $this->healthRepository->save($health);
 
+        if ($request->get('ages')){
+            foreach ($request->get('ages') as $k => $v)
+            {
+                $health->ages()->sync([$health->id=>$v],false);
+                //$health->ages()->attach([$health->id=>$v]);
+            }
+        }
+
+
+        //$health->ages()->sync([$request->input('ages',[])]);
+
         return HealthResource::make($health);
     }
 
@@ -40,6 +51,8 @@ class HealthController extends Controller
     {
         $health->fill($request->all());
         $health = $this->healthRepository->save($health);
+
+        $health->ages()->sync($request->input('ages',[]));
 
         return HealthResource::make($health);
     }

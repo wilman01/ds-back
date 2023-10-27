@@ -34,7 +34,7 @@ class QuotationController extends Controller
 
         $quotation = Quotation::create([
             'type_id'=>$request->get('type_id'),
-            'supplier'=>$request->get('supplier'),
+            'provider_id'=>$request->get('provider_id'),
             'customer_id'=>$request->get('customer_id'),
             'policy'=>$request->get('policy'),
         ]);
@@ -47,17 +47,17 @@ class QuotationController extends Controller
         return QuotationResource::make($quotation);
     }
 
-    public function update(Quotation $quotation, Request $request):QuotationResource
+    public function update(Quotation $quotation, Request $request)
     {
         $validator = Validator::make($request->all(),
             [
                 'type_id' => 'numeric',
-                'supplier' => 'string|max:126',
+                'provider_id' => 'numeric|exists:providers,id',
                 'policy' => 'required|string',
             ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors()->toJson(),400);
+            return response()->json($validator->errors(),400);
         }
 
         $quotation->fill($request->all());

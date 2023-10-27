@@ -11,7 +11,7 @@ class Quotation extends Model
 
     protected $fillable = [
         'type_id',
-        'supplier',
+        'provider_id',
         'customer_id',
         'policy',
     ];
@@ -26,6 +26,16 @@ class Quotation extends Model
     public function customer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function provider():\Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Provider::class);
+    }
+
+    public function type():\Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return  $this->belongsTo(Type::class);
     }
 
 }
