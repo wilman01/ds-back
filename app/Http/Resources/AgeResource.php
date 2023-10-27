@@ -19,7 +19,8 @@ class AgeResource extends JsonResource
             'id'=>(string) $this->resource->getRouteKey(),
             'atribute'=>[
                 "id"=> (string) $this->resource->getRouteKey(),
-                "group"=>$this->resource->group
+                "group"=>$this->resource->group,
+                "quantity"=>$this->resource->pivot->quantity
             ]
         ];
     }
