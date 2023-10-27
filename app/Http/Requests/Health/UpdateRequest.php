@@ -29,7 +29,6 @@ class UpdateRequest extends FormRequest
         return [
             'policy_id' => 'required|numeric|exists:policies,id',
             'customer_id' => 'required|numeric|exists:customers,id',
-            'type_id' => 'required|numeric|exists:types,id',
             'attended' => [new Enum(Attended::class)]
         ];
     }

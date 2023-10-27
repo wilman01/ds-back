@@ -24,7 +24,7 @@ class DetailController extends Controller
 
     public function index(Request $request)
     {
-        $details = $this->detailRepository->all();
+        $details = $this->detailRepository->all([],$request->size);
         return DetailCollection::make($details);
     }
 

@@ -33,7 +33,7 @@ class HealthResource extends JsonResource
             $health['atribute']['customer_name'] =$this->resource->customer->name . " " . $this->resource->customer->last_name;
             $health['atribute']['customer_email'] =$this->resource->customer->email;
             $health['atribute']['customer_phone'] =$this->resource->customer->phone;
-
+            $health['atribute']['customer_status'] =$this->resource->customer->status;
         }
 
         if ($this->resource->type){
@@ -44,6 +44,10 @@ class HealthResource extends JsonResource
         if ($this->resource->policy){
             $health['atribute']['policy_id'] = (string) $this->resource->policy->id;
             $health['atribute']['policy_name'] = $this->resource->policy->name;
+        }
+
+        if ($this->resource->ages){
+            $health['atribute']['ages'] = AgeResource::collection($this->resource->ages);
         }
 
         return $health;

@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\Customer;
 use Illuminate\Foundation\Http\FormRequest;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\ValidationException;
 
 class CustomerRequest extends FormRequest
@@ -31,7 +33,8 @@ class CustomerRequest extends FormRequest
             'name' => 'required|string|max:55',
             'last_name' => 'required|string|max:55',
             'email' => 'required|string|unique:customers|email',
-            'phone' => 'required|string|max:20'
+            'phone' => 'required|string|max:20',
+            'status' => [new Enum(Customer::class)]
         ];
     }
 

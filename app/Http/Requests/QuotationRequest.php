@@ -27,7 +27,7 @@ class QuotationRequest extends FormRequest
     {
         return [
             'type_id' => 'required|numeric',
-            'supplier' => 'required|string|max:126',
+            'provider_id' => 'required|numeric|exists:providers,id',
             'customer_id' => 'required|numeric|exists:customers,id',
             'policy' => 'required|json',
         ];
