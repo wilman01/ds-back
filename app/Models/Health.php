@@ -24,6 +24,19 @@ class Health extends Model
         });
 
     }
+
+    public function scopeStatus($query, $status)
+    {
+        $query->when($status ?? false, function ($query, $status){
+           $query->where('attended', $status);
+        });
+    }
+    public function scopeHistory($query, $customer)
+    {
+        $query->when($customer ?? false, function ($query, $customer){
+           $query->where('customer_id', $customer);
+        });
+    }
     public function customer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Customer::class);

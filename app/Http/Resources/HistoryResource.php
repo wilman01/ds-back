@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class HealthResource extends JsonResource
+class HistoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,23 +19,12 @@ class HealthResource extends JsonResource
             'id'=>(string) $this->resource->getRouteKey(),
             'atribute'=>[
                 "id"=> (string) $this->resource->getRouteKey(),
-                "status"=>$this->resource->attended,
-                //"create_at"=>$this->resource->created_at->diffForHumans()
                 "create_at"=>$this->resource->created_at
             ],
             'links'=>[
                 'self'=>url('/api/quotation/' . $this->resource->getRouteKey())
             ]
         ];
-
-        if ($this->resource->customer){
-            $health['atribute']['customer_id'] =(string) $this->resource->customer_id;
-            $health['atribute']['customer_cedula'] =$this->resource->customer->cedula;
-            $health['atribute']['customer_name'] =$this->resource->customer->name . " " . $this->resource->customer->last_name;
-            $health['atribute']['customer_email'] =$this->resource->customer->email;
-            $health['atribute']['customer_phone'] =$this->resource->customer->phone;
-            $health['atribute']['customer_status'] =$this->resource->customer->status;
-        }
 
         if ($this->resource->policy->type){
             $health['atribute']['type_id'] = (string) $this->resource->policy->type->id;

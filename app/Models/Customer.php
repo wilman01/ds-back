@@ -21,8 +21,20 @@ class Customer extends Model
                 ->orWhere('email', 'like', "%$s%");
         }
     }
+
+    public function scopeStatus($query, $status)
+    {
+        $query->when($status ?? false, function($query, $status){
+           $query->where('status', $status);
+        });
+    }
     public function quotations()
     {
         return $this->hasMany(Quotation::class);
+    }
+
+    public function healths()
+    {
+        return $this->hasMany(Health::class);
     }
 }

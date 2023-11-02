@@ -49,6 +49,8 @@ Route::resource('vehiversion', VehiversionController::class)->names('api.vehiver
 
 Route::resource('customer', CustomerController::class)->names('api.customer');
 
+Route::get('history/{customer}', [HealthController::class, 'history'])->name('api.history');
+
 Route::resource('quotation', QuotationController::class)->names('api.cotizacion');
 
 Route::resource('provider', ProviderController::class)->names('api.provider');

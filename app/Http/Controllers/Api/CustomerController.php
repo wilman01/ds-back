@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\CustomerCollection;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
@@ -29,9 +28,9 @@ class CustomerController extends Controller
 
     public function index(Request $request):CustomerCollection
     {
-        $customer = $this->customerRepository->all($request->q, $request->size);
-
+        $customer = $this->customerRepository->all($request->q, $request->size, $request->status);
         return CustomerCollection::make($customer);
+
     }
 
     public function store(Request $request)
