@@ -7,12 +7,11 @@ use App\Http\Requests\Health\StoreRequest;
 use App\Http\Requests\Health\UpdateRequest;
 use App\Http\Resources\HealthCollection;
 use App\Http\Resources\HealthResource;
+use App\Http\Resources\HistoryCollection;
 use App\Jobs\HealthCreateJob;
-use App\Mail\HealthMailable;
 use App\Models\Health;
 use App\Repositories\HealthRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class HealthController extends Controller
 {
@@ -27,7 +26,7 @@ class HealthController extends Controller
 
     public function index(Request $request)
     {
-        $health = $this->healthRepository->all();
+        $health = $this->healthRepository->all('', '', $request->status);
         return HealthCollection::make($health);
     }
 
@@ -46,6 +45,14 @@ class HealthController extends Controller
 
         return HealthResource::make($health);
     }
+
+    public function history($customer)
+    {
+        $health = $this->healthRepository->history($customer);
+        //dd($health);
+        return HistoryCollection::make($health);
+    }
+
 
     public function update(UpdateRequest $request, Health $health)
     {
