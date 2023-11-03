@@ -7,6 +7,7 @@ use App\Http\Requests\Policy\StoreRequest;
 use App\Http\Requests\Policy\UpdateRequest;
 use App\Http\Resources\PolicyCollection;
 use App\Http\Resources\PolicyResource;
+use App\Models\Group;
 use App\Models\Policy;
 use App\Repositories\PolicyRepository;
 use Illuminate\Http\Request;
@@ -29,7 +30,18 @@ class PolicyController extends Controller
 
     public function store(StoreRequest $request)
     {
+        $policy = Policy::where('provider_id', $request->provider_id)
+                        ->where('name', $request->name)
+                        ->first();
+
+        if($policy)
+        {
+            return response()->json(['Error'=>'Ya existe una póliza para ese proveedor con el mismo nombre']);
+        }
+
+
         $policy = new Policy($request->all());
+
         $policy = $this->policyRepository->save($policy);
 
         $policy->details()->sync($request->input('details', []));

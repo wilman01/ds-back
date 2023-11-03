@@ -264,7 +264,6 @@ Todos los métodos están protegidos por Token excepto  show para que pueda acce
 type_id: {int}
 provider_id {int}
 name:{string}
-amount:{double}
 coverage: {double}
 description:{string}
 ~~~
@@ -297,7 +296,6 @@ Permite actualizar los datos del registro de la póliza.
 type_id: {int}
 provider_id {int}
 name:{string}
-amount:{double}
 coverage: {double}
 description:{string}
 ~~~

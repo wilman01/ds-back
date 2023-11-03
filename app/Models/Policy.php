@@ -9,7 +9,7 @@ class Policy extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type_id', 'provider_id', 'name', 'amount', 'coverage', 'description'];
+    protected $fillable = ['type_id', 'provider_id', 'name', 'coverage', 'description'];
 
     public function scopeBusqueda($query, $search)
     {
@@ -17,6 +17,13 @@ class Policy extends Model
             $query->where('name', 'like', "%$s%");
         });
 
+    }
+
+    //relacion uno a muchos
+
+    public function groups():\Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Group::class);
     }
 
     //relaciones uno a muchos inversa

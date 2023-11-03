@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\DetailController;
+use App\Http\Controllers\Api\GroupController;
 use App\Http\Controllers\Api\HealthController;
 use App\Http\Controllers\Api\PolicyController;
 use App\Http\Controllers\Api\ProviderController;
@@ -64,4 +65,6 @@ Route::get('type-policy/{policy}', [TypeController::class, 'withPolicies'])->nam
 Route::resource('detail', DetailController::class)->names('api.detail');
 
 Route::resource('health', HealthController::class)->names('api.health');
+
+Route::resource('group', GroupController::class)->names('api.group');
 
