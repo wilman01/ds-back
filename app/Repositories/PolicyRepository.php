@@ -13,5 +13,4 @@ class PolicyRepository extends BaseRepository
     {
         parent::__construct($policy, self::RELATIONS);
     }
-
 }

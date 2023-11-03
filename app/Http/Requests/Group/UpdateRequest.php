@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Policy;
+namespace App\Http\Requests\Group;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -20,22 +20,23 @@ class UpdateRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'type_id'=>'numeric',
-            'provider_id'=>'numeric|exists:providers,id',
-            'name' => 'required|string|max:128',
-            'coverage' => 'required|numeric',
-            'description' => 'required|string',
+            'policy_id' => 'required|numeric|exists:policies,id',
+            'group' => 'required|string|unique:groups,group,'.$this->route('group')->id.'|max:128',
+            'amount' => 'required|numeric',
+            'deductible'=>'numeric|nullable'
         ];
     }
+
     protected function failedValidation(Validator $validator){
         $errors = (new ValidationException($validator))->errors();
         throw new HttpResponseException(
             response()->json($errors,400)
         );
+
     }
 }

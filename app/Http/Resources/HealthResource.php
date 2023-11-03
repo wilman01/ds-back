@@ -47,9 +47,10 @@ class HealthResource extends JsonResource
             $health['atribute']['policy_name'] = $this->resource->policy->name;
         }
 
-        if ($this->resource->ages){
-            $health['atribute']['ages'] = AgeResource::collection($this->resource->ages);
-        }
+        //=====================La funcionalidad de agregar familiares queda para otra version
+//        if ($this->resource->ages){
+//            $health['atribute']['ages'] = AgeResource::collection($this->resource->ages);
+//        }
 
         return $health;
     }

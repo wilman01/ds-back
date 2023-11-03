@@ -35,13 +35,17 @@ class HealthController extends Controller
         $health = new Health($request->all());
         $health = $this->healthRepository->save($health);
 
-        if ($request->get('ages')){
-            foreach ($request->get('ages') as $k => $v)
-            {
-                $health->ages()->sync([$health->id=>$v],false);
-            }
-        }
-        dispatch(new HealthCreateJob($health));
+
+//======================La funcionalidad de agregar familiares queda para otra version
+//        if ($request->get('ages')){
+//            foreach ($request->get('ages') as $k => $v)
+//            {
+//                $health->ages()->sync([$health->id=>$v],false);
+//            }
+//        }
+
+//====================La funcionalidad de enviar el email queda para otra version
+       // dispatch(new HealthCreateJob($health));
 
         return HealthResource::make($health);
     }
@@ -59,13 +63,16 @@ class HealthController extends Controller
         $health->fill($request->all());
         $health = $this->healthRepository->save($health);
 
-        if ($request->get('ages')){
-            $health->ages()->detach();
-            foreach ($request->get('ages') as $k => $v)
-            {
-                $health->ages()->sync([$health->id=>$v],false);
-            }
-        }
+
+//======================La funcionalidad de agregar familiares queda para otra version
+
+//        if ($request->get('ages')){
+//            $health->ages()->detach();
+//            foreach ($request->get('ages') as $k => $v)
+//            {
+//                $health->ages()->sync([$health->id=>$v],false);
+//            }
+//        }
         return HealthResource::make($health);
     }
 

@@ -20,7 +20,6 @@ class PolicyResource extends JsonResource
             'atribute'=>[
                 "id"=> (string) $this->resource->getRouteKey(),
                 "name"=>$this->resource->name,
-                "amount"=> (string)$this->resource->amount,
                 "coverage"=>(string)$this->resource->coverage,
                 "description"=> $this->resource->description,
             ],
@@ -39,6 +38,10 @@ class PolicyResource extends JsonResource
         }
         if ($this->resource->details){
             $policy['atribute']['details'] = DetailResource::collection($this->resource->details);
+        }
+
+        if($this->resource->groups){
+            $policy['atribute']['groups'] = GroupResource::collection($this->resource->groups);
         }
 
         return $policy;

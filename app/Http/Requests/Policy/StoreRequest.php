@@ -23,10 +23,10 @@ class StoreRequest extends FormRequest
             'type_id'=>'required|numeric',
             'provider_id'=>'required|numeric|exists:providers,id',
             'name' => 'required|string|max:128',
-            'amount' => 'required|numeric',
             'coverage' => 'required|numeric',
             'description' => 'required|string',
             'details.*' => 'string',
+            'groups.*'=>'array',
         ];
     }
     protected function failedValidation(Validator $validator){
