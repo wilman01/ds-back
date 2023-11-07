@@ -10,10 +10,12 @@ class Group extends Model
     use HasFactory;
 
     protected $fillable = [
-      'policy_id',
-      'group',
-      'amount',
-      'deductible'
+        'policy_id',
+        'group',
+        'min_age',
+        'max_age',
+        'amount',
+        'deductible'
     ];
 
 }

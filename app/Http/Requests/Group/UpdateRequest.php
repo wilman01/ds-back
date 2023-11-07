@@ -26,7 +26,9 @@ class UpdateRequest extends FormRequest
     {
         return [
             'policy_id' => 'required|numeric|exists:policies,id',
-            'group' => 'required|string|unique:groups,group,'.$this->route('group')->id.'|max:128',
+            'group' => 'required|string',
+            'min_age'=>'required|required_with:max_age|integer',
+            'max_age'=>'required|required_with:min_age|integer|gt:min_age',
             'amount' => 'required|numeric',
             'deductible'=>'numeric|nullable'
         ];
