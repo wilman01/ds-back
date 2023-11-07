@@ -14,6 +14,7 @@ class Health extends Model
     protected $fillable = [
         'policy_id',
         'customer_id',
+        'amount_health',
         'attended'
     ];
 

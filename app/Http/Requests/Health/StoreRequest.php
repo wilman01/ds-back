@@ -29,6 +29,7 @@ class StoreRequest extends FormRequest
         return [
             'policy_id' => 'required|numeric|exists:policies,id',
             'customer_id' => 'required|numeric|exists:customers,id',
+            'amount_health' => 'required|numeric',
             'attended' => [new Enum(Attended::class)],
         ];
     }

@@ -50,11 +50,9 @@ class HealthController extends Controller
         return HealthResource::make($health);
     }
 
-    public function history($customer)
+    public function show(Health $health)
     {
-        $health = $this->healthRepository->history($customer);
-        //dd($health);
-        return HistoryCollection::make($health);
+        return HealthResource::make($health);
     }
 
 
@@ -81,5 +79,12 @@ class HealthController extends Controller
         $health = $this->healthRepository->delete($health);
 
         return HealthResource::make($health);
+    }
+
+    public function history($customer)
+    {
+        $health = $this->healthRepository->history($customer);
+        //dd($health);
+        return HistoryCollection::make($health);
     }
 }
