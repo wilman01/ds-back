@@ -19,6 +19,7 @@ class HealthResource extends JsonResource
             'id'=>(string) $this->resource->getRouteKey(),
             'atribute'=>[
                 "id"=> (string) $this->resource->getRouteKey(),
+                "amount_health" => (string)$this->resource->amount_health,
                 "status"=>$this->resource->attended,
                 //"create_at"=>$this->resource->created_at->diffForHumans()
                 "create_at"=>$this->resource->created_at

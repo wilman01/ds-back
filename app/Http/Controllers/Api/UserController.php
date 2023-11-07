@@ -130,7 +130,7 @@ class UserController extends Controller
             'cedula' => 'required|string|max:10|unique:users,cedula,'.$user->id,
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
+            'email' => 'string|email|max:255|unique:users,email,'.$user->id,
             'password' => 'required|string|min:6',
             'status' => 'required|numeric',
             'role'=> 'required'

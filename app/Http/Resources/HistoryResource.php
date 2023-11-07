@@ -19,6 +19,7 @@ class HistoryResource extends JsonResource
             'id'=>(string) $this->resource->getRouteKey(),
             'atribute'=>[
                 "id"=> (string) $this->resource->getRouteKey(),
+                "amount_health"=>(string)$this->resource->amount_health,
                 "create_at"=>$this->resource->created_at
             ],
             'links'=>[

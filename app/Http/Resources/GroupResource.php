@@ -20,6 +20,8 @@ class GroupResource extends JsonResource
             'atribute'=>[
                 "id"=> (string) $this->resource->getRouteKey(),
                 "group"=>$this->resource->group,
+                "min_age"=>(string)$this->resource->min_age,
+                "max_age"=>(string)$this->resource->max_age,
                 "amount"=>(string) $this->resource->amount,
                 "deductible"=>(string) $this->resource->deductible
             ],
