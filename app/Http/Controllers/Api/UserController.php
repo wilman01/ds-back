@@ -29,7 +29,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['api', 'jwt.verify'])->except('authenticate');
+        $this->middleware(['api', 'jwt.verify'])->except(['authenticate']);
     }
 
     public function index(Request $request){
@@ -150,5 +150,24 @@ class UserController extends Controller
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function destroy(User $user)
+    {
+        try {
+            if ($user == JWTAuth::parseToken()->authenticate()) {
+                return response()->json(['ERROR: No puedes eliminar tu propio usuario'], 404);
+            }
+        } catch (TokenExpiredException $e) {
+            return response()->json(['token_expired'], 404);
+        } catch (TokenInvalidException $e) {
+            return response()->json(['token_invalid'], 404);
+            //} catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+        } catch (JWTException $e) {
+            return response()->json(['token_absent'], 404);
+        }
+        $user->delete();
+        return UserResource::make($user);
+
     }
 }
