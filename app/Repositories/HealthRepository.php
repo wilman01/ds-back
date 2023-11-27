@@ -50,6 +50,22 @@ class HealthRepository extends BaseRepository
             ->paginate($size);
     }
 
+    public function getH($healths)
+    {
+        $querybuilder = $this->model
+            ->Fields()
+            ->join('customers', 'healths.customer_id', '=', 'customers.id')
+            ->join('policies', 'healths.policy_id', '=', 'policies.id')
+            ->join('providers', 'policies.provider_id', '=', 'providers.id')
+            ->join('types', 'policies.type_id', '=', 'types.id')
+            ->where('healths.id',$healths->id);
+        return  $querybuilder->first();
+
+
+
+
+    }
+
     public function history($customer)
     {
         $query = $this->model;

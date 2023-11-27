@@ -27,7 +27,7 @@ class HealthController extends Controller
     public function index(Request $request)
     {
         $health = $this->healthRepository->allQ($request->q, $request->status, $request->size);
-        //dd($health);
+
         return HealthCollection::make($health);
     }
 
@@ -35,6 +35,8 @@ class HealthController extends Controller
     {
         $health = new Health($request->all());
         $health = $this->healthRepository->save($health);
+
+        $health = $this->healthRepository->getH($health);
 
 
 //======================La funcionalidad de agregar familiares queda para otra version
@@ -53,6 +55,7 @@ class HealthController extends Controller
 
     public function show(Health $health)
     {
+        $health = $this->healthRepository->getH($health);
         return HealthResource::make($health);
     }
 
@@ -61,6 +64,7 @@ class HealthController extends Controller
     {
         $health->fill($request->all());
         $health = $this->healthRepository->save($health);
+        $health = $this->healthRepository->getH($health);
 
 
 //======================La funcionalidad de agregar familiares queda para otra version
@@ -78,6 +82,7 @@ class HealthController extends Controller
     public function destroy(Health $health)
     {
         $health = $this->healthRepository->delete($health);
+        $health = $this->healthRepository->getH($health);
 
         return HealthResource::make($health);
     }
@@ -85,7 +90,7 @@ class HealthController extends Controller
     public function history($customer)
     {
         $health = $this->healthRepository->history($customer);
-        //dd($health);
+
         return HistoryCollection::make($health);
     }
 }

@@ -20,6 +20,7 @@ class HealthResource extends JsonResource
             'atribute'=>[
                 "id"=> (string) $this->resource->healths_id,
                 "amount_health" => (string)$this->resource->amount_health,
+                "installments" => (string)$this->resource->installments,
                 "status"=>$this->resource->attended,
                 //"create_at"=>$this->resource->created_at->diffForHumans()
                 "create_at"=>$this->resource->created_at,

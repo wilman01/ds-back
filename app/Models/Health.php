@@ -15,6 +15,7 @@ class Health extends Model
         'policy_id',
         'customer_id',
         'amount_health',
+        'installments',
         'attended'
     ];
 
@@ -24,6 +25,7 @@ class Health extends Model
                 'healths.policy_id',
                 'healths.customer_id',
                 'healths.amount_health',
+                'healths.installments',
                 'healths.attended',
                 'healths.created_at',
                 'customers.cedula',
