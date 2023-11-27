@@ -30,6 +30,26 @@ class HealthRepository extends BaseRepository
             ->paginate($size);
     }
 
+    public function allQ($q, $status='', $size='')
+    {
+        $size = is_numeric($size) ? $size : 10;
+
+        $querybuilder = $this->model
+            ->Fields()
+            ->join('customers', 'healths.customer_id', '=', 'customers.id')
+            ->join('policies', 'healths.policy_id', '=', 'policies.id')
+            ->join('providers', 'policies.provider_id', '=', 'providers.id')
+            ->join('types', 'policies.type_id', '=', 'types.id')
+            ->Busqueda($q);
+        if(!empty($status))
+        {
+           $querybuilder->Status($status);
+        }
+
+        return $querybuilder ->orderBy('healths.id', 'desc')
+            ->paginate($size);
+    }
+
     public function history($customer)
     {
         $query = $this->model;

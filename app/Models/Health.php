@@ -18,10 +18,41 @@ class Health extends Model
         'attended'
     ];
 
+    public function scopeFields($query)
+    {
+        $query->select('healths.id as healths_id',
+                'healths.policy_id',
+                'healths.customer_id',
+                'healths.amount_health',
+                'healths.attended',
+                'healths.created_at',
+                'customers.cedula',
+                'customers.name',
+                'customers.last_name',
+                'customers.birthdate',
+                'customers.email',
+                'customers.phone',
+                'customers.status',
+                'policies.id as policies_id',
+                'policies.type_id',
+                'policies.name as policies_name',
+                'policies.coverage',
+                'providers.id as providers_id',
+                'providers.name as providers_name',
+                'types.id as types_id',
+                'types.name as types_name'
+            );
+    }
     public function scopeBusqueda($query, $search)
     {
         $query->when($search ?? false, function($query, $search){
-            $query->where('customer.name', 'like', "%$search%");
+            $query->where('customers.cedula', 'like', "%$search%")
+                    ->orWhere('customers.name', 'like', "%$search%")
+                    ->orWhere('customers.last_name', 'like', "%$search%")
+                    ->orWhere('customers.email', 'like', "%$search%")
+                    ->orWhere('customers.phone', 'like', "%$search%")
+                    ->orWhere('policies.name', 'like', "%$search%")
+                    ->orWhere('providers.name', 'like', "%$search%");
         });
 
     }

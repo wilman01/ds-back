@@ -26,7 +26,8 @@ class HealthController extends Controller
 
     public function index(Request $request)
     {
-        $health = $this->healthRepository->all('', '', $request->status);
+        $health = $this->healthRepository->allQ($request->q, $request->status, $request->size);
+        //dd($health);
         return HealthCollection::make($health);
     }
 

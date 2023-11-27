@@ -38,5 +38,5 @@ class QuotationRepository extends BaseRepository
             ->orderBy('quotations.id', 'desc')
             ->paginate(10);
         return $querybuilder;
-     }
+    }
 }
