@@ -131,7 +131,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'string|email|max:255|unique:users,email,'.$user->id,
-            'password' => 'required|string|min:6',
+            'password' => 'string|min:6',
             'status' => 'required|numeric',
             'role'=> 'required'
         ]);
