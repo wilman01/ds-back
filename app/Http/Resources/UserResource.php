@@ -24,6 +24,7 @@ class UserResource extends JsonResource
                     "last_name"=>$this->resource->last_name,
                     "status"=>$this->resource->status,
                     "email"=> $this->resource->email,
+                    "rol"=>$this->resource->roles[0]->name
                 ],
                 'links'=>[
                     'self'=>url('/api/user/' . $this->resource->getRouteKey())
