@@ -84,7 +84,6 @@ class UserController extends Controller
         } catch (JWTException $e) {
                 return response()->json(['token_absent'], $e->getStatusCode());
         }
-
         return UserResource::make($user);
     }
 
