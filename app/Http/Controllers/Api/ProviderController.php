@@ -18,7 +18,7 @@ class ProviderController extends Controller
 
     public function __construct(ProviderRepository $providerRepository)
     {
-        $this->middleware(['api', 'jwt.verify']);
+        $this->middleware(['api', 'jwt.verify'])->except(['index']);
 
         $this->providerRepository = $providerRepository;
     }
