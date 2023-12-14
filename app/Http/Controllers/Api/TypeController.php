@@ -18,7 +18,7 @@ class TypeController extends Controller
 
     public function __construct(TypeRepository $typeRepository)
     {
-        $this->middleware(['api','jwt.verify']);
+        $this->middleware(['api','jwt.verify'])->except(['index']);
         $this->typeRepository = $typeRepository;
     }
 
