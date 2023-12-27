@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\Gender;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CustomerCollection;
 use App\Http\Resources\CustomerResource;
@@ -50,9 +51,10 @@ class CustomerController extends Controller
 
         if(is_null($customer)){
             $validator = Validator::make($request->all(), [
-                    'cedula' => 'required|string|max:8|unique:customers',
+                    'cedula' => 'required|string|max:15|unique:customers',
                     'name' => 'required|string|max:55',
                     'last_name' => 'required|string|max:55',
+                    'gender' => new Enum(Gender::class),
                     'email' => 'required|string|email|unique:customers',
                     'phone' => 'required|string|max:20'
                 ]);
@@ -65,7 +67,7 @@ class CustomerController extends Controller
             $customer = $this->customerRepository->save($customer);
         }
 
-        return CustomerResource::make($customer);
+        return CustomerResource::make(Customer::where('email',$customer->email)->first());
     }
 
 
@@ -79,9 +81,10 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
         $validator = Validator::make($request->all(), [
-            'cedula' => 'required|string|max:8|unique:customers,cedula,'.$customer['id'],
+            'cedula' => 'required|string|max:15|unique:customers,cedula,'.$customer['id'],
             'name' => 'required|string|max:55',
             'last_name' => 'required|string|max:55',
+            'gender' => new Enum(Gender::class),
             'email' => 'required|string|email|unique:customers,email,'.$customer['id'],
             'phone' => 'required|string|max:20',
             'status' => [new Enum(\App\Enums\Customer::class)]
