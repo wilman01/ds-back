@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Enums\Customer;
+use App\Enums\Gender;
 use Illuminate\Foundation\Http\FormRequest;
 
 use Illuminate\Contracts\Validation\Validator;
@@ -29,9 +30,10 @@ class CustomerRequest extends FormRequest
     {
         //dd(request()->request);
         return [
-            'cedula' => 'required|string|max:8',
+            'cedula' => 'required|string|max:15',
             'name' => 'required|string|max:55',
             'last_name' => 'required|string|max:55',
+            'gender' => new Enum(Gender::class),
             'email' => 'required|string|unique:customers|email',
             'phone' => 'required|string|max:20',
             'status' => [new Enum(Customer::class)]

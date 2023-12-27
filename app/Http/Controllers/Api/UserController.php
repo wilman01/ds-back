@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserDeleteResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserCollection;
 use App\Models\User;
@@ -35,8 +36,7 @@ class UserController extends Controller
     public function index(Request $request){
 
         $user = User::search($request->q, $request->size);
-
-       return UserCollection::make($user);
+        return UserCollection::make($user);
     }
 
     public function authenticate(Request $request)
@@ -120,7 +120,7 @@ class UserController extends Controller
 
         $email = new RegisterMailable($request->all());
         Mail::to('rafahel171@gmail.com')->send($email);
-        return UserResource::make($user);
+        return UserResource::make(User::where('name',$user->name)->first());
 
     }
 
@@ -165,8 +165,9 @@ class UserController extends Controller
         } catch (JWTException $e) {
             return response()->json(['token_absent'], 404);
         }
+        $user->roles = $user->roles[0];
         $user->delete();
-        return UserResource::make($user);
+        return UserDeleteResource::make($user);
 
     }
 }

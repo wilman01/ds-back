@@ -38,7 +38,7 @@ Route::group([
     Route::get('user', [UserController::class, 'index']);
 
     Route::put('user/{user}', [UserController::class, 'update']);
-    Route::post('delete/{user}', [UserController::class, 'destroy']);
+    Route::delete('delete/{user}', [UserController::class, 'destroy']);
 });
 
 Route::resource('year', YearController::class)->names('api.year');

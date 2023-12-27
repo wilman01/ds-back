@@ -22,6 +22,7 @@ class CustomerResource extends JsonResource
                 "cedula"=>$this->resource->cedula,
                 "name"=> $this->resource->name,
                 "last_name"=>$this->resource->last_name,
+                "gender"=>$this->resource->gender,
                 "email"=> $this->resource->email,
                 "birthdate"=>$this->resource->birthdate,
                 "phone"=>$this->resource->phone,
